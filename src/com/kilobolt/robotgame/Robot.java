@@ -12,7 +12,7 @@ public class Robot {
 	final int MOVESPEED = 5;
 
 	private int centerX = 100;
-	private int centerY = 377;
+	private int centerY = 415;
 	private boolean jumped = false;
 	private boolean movingLeft = false;
 	private boolean movingRight = false;
@@ -25,11 +25,7 @@ public class Robot {
 	public static Rect rect2 = new Rect(0, 0, 0, 0);
 	public static Rect rect3 = new Rect(0, 0, 0, 0);
 	public static Rect rect4 = new Rect(0, 0, 0, 0);
-	public static Rect yellowRed = new Rect(0, 0, 0, 0);
-	
-	public static Rect footleft = new Rect(0,0,0,0);
-	public static Rect footright = new Rect(0,0,0,0);
-	
+	public static Rect yellowRed = new Rect(0, 0, 0, 0);	
 	
 	private Background bg1 = GameScreen.getBg1();
 	private Background bg2 = GameScreen.getBg2();
@@ -71,14 +67,11 @@ public class Robot {
 			centerX = 61;
 		}
 
-		rect.set(centerX - 34, centerY - 63, centerX + 34, centerY);
-		rect2.set(rect.left, rect.top + 63, rect.left+68, rect.top + 128);
-		rect3.set(rect.left - 26, rect.top+32, rect.left, rect.top+52);
-		rect4.set(rect.left + 68, rect.top+32, rect.left+94, rect.top+52);
+		rect.set(centerX - 20, centerY - 25, centerX + 20, centerY);
+		rect2.set(rect.left, centerY, rect.right, centerY+ 25);
+		rect3.set(centerX - 25, centerY - 20, centerX, centerY + 20);
+		rect4.set(centerX, centerY - 20, centerX + 25, centerY + 20);
 		yellowRed.set(centerX - 110, centerY - 110, centerX + 70, centerY + 70);
-		footleft.set(centerX - 50, centerY + 20, centerX, centerY + 35);
-		footright.set(centerX, centerY + 20, centerX+50, centerY+35);
-
 
 	}
 
