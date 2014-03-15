@@ -40,7 +40,7 @@ public class AndroidFastRenderView extends SurfaceView implements Runnable {
             startTime = System.nanoTime();
             
             if (deltaTime > 3.15){
-            	deltaTime = (float) 3.15;
+                deltaTime = (float) 3.15;
            }
      
 

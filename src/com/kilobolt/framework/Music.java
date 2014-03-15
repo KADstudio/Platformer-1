@@ -19,5 +19,5 @@ public interface Music {
 
     public void dispose();
 
-	void seekBegin();
+    void seekBegin();
 }

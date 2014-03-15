@@ -103,9 +103,9 @@ public class AndroidGraphics implements Graphics {
     
     @Override
     public void drawString(String text, int x, int y, Paint paint){
-    	canvas.drawText(text, x, y, paint);
+        canvas.drawText(text, x, y, paint);
 
-    	
+        
     }
     
 
@@ -132,9 +132,9 @@ public class AndroidGraphics implements Graphics {
     }
     
     public void drawScaledImage(Image Image, int x, int y, int width, int height, int srcX, int srcY, int srcWidth, int srcHeight){
-    	
-    	
-   	 srcRect.left = srcX;
+        
+        
+     srcRect.left = srcX;
         srcRect.top = srcY;
         srcRect.right = srcX + srcWidth;
         srcRect.bottom = srcY + srcHeight;

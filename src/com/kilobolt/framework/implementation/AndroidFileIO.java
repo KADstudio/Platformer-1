@@ -16,7 +16,7 @@ import android.preference.PreferenceManager;
 import com.kilobolt.framework.FileIO;
 
 public class AndroidFileIO implements FileIO {
-	Context context;
+    Context context;
     AssetManager assets;
     String externalStoragePath;
 
@@ -46,6 +46,6 @@ public class AndroidFileIO implements FileIO {
     }
     
     public SharedPreferences getSharedPref() {
-    	return PreferenceManager.getDefaultSharedPreferences(context);
+        return PreferenceManager.getDefaultSharedPreferences(context);
     }
 }

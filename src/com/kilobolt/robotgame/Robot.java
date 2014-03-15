@@ -1,6 +1,5 @@
 package com.kilobolt.robotgame;
 
-
 import java.util.ArrayList;
 
 import android.graphics.Rect;
@@ -8,16 +7,19 @@ import android.graphics.Rect;
 public class Robot {
 
 	// Constants are Here
-	final int JUMPSPEED = -15;
-	final int MOVESPEED = 5;
+	final int JUMPSPEED = -14;
+	final int MOVESPEED = 7;
 
-	private int centerX = 100;
+	private int centerX = 350;
 	private int centerY = 415;
 	private boolean jumped = false;
 	private boolean movingLeft = false;
 	private boolean movingRight = false;
+	private boolean facingRight = true;
 	private boolean ducked = false;
 	private boolean readyToFire = true;
+	private int counter;
+	private int health = 5;
 
 	private int speedX = 0;
 	private int speedY = 0;
@@ -25,8 +27,11 @@ public class Robot {
 	public static Rect rect2 = new Rect(0, 0, 0, 0);
 	public static Rect rect3 = new Rect(0, 0, 0, 0);
 	public static Rect rect4 = new Rect(0, 0, 0, 0);
-	public static Rect yellowRed = new Rect(0, 0, 0, 0);	
-	
+	public static Rect yellowRed = new Rect(0, 0, 0, 0);
+
+	public static Rect footleft = new Rect(0, 0, 0, 0);
+	public static Rect footright = new Rect(0, 0, 0, 0);
+
 	private Background bg1 = GameScreen.getBg1();
 	private Background bg2 = GameScreen.getBg2();
 
@@ -34,21 +39,19 @@ public class Robot {
 
 	public void update() {
 		// Moves Character or Scrolls Background accordingly.
-
-		if (speedX < 0) {
-			centerX += speedX;
+		counter++;
+		if (counter >= 8) {
+			readyToFire = true;
 		}
-		if (speedX == 0 || speedX < 0) {
+		if (speedX == 0) {
 			bg1.setSpeedX(0);
 			bg2.setSpeedX(0);
 
 		}
-		if (centerX <= 200 && speedX > 0) {
-			centerX += speedX;
-		}
-		if (speedX > 0 && centerX > 200) {
-			bg1.setSpeedX(-MOVESPEED / 5);
-			bg2.setSpeedX(-MOVESPEED / 5);
+
+		else {
+			bg1.setSpeedX(-speedX);
+			bg2.setSpeedX(-speedX);
 		}
 
 		// Updates Y Position
@@ -56,9 +59,9 @@ public class Robot {
 
 		// Handles Jumping
 
-			speedY += 1;
+		speedY += 1;
 
-		if (speedY > 3){
+		if (speedY > 3) {
 			jumped = true;
 		}
 
@@ -68,9 +71,9 @@ public class Robot {
 		}
 
 		rect.set(centerX - 20, centerY - 25, centerX + 20, centerY);
-		rect2.set(rect.left, centerY, rect.right, centerY+ 25);
-		rect3.set(centerX - 25, centerY - 20, centerX, centerY + 20);
-		rect4.set(centerX, centerY - 20, centerX + 25, centerY + 20);
+		rect2.set(rect.left, centerY, rect.right, centerY + 25);
+		rect3.set(centerX - 25, centerY - 20, centerX, centerY);
+		rect4.set(centerX, centerY - 20, centerX + 25, centerY);
 		yellowRed.set(centerX - 110, centerY - 110, centerX + 70, centerY + 70);
 
 	}
@@ -121,9 +124,15 @@ public class Robot {
 	}
 
 	public void shoot() {
-		if (readyToFire) {
-			Projectile p = new Projectile(centerX + 50, centerY - 25);
-			projectiles.add(p);
+		if (readyToFire && counter >= 8) {
+			if (facingRight) {
+				Projectile p = new Projectile(centerX + 25, centerY - 20, 10);
+				projectiles.add(p);
+			} else {
+				Projectile p = new Projectile(centerX - 25, centerY - 20, -10);
+				projectiles.add(p);
+			}
+			counter = 0;
 		}
 	}
 
@@ -201,6 +210,30 @@ public class Robot {
 
 	public void setReadyToFire(boolean readyToFire) {
 		this.readyToFire = readyToFire;
+	}
+
+	public int getHealth() {
+		return health;
+	}
+
+	public void setHealth(int health) {
+		this.health = health;
+	}
+
+	public boolean isFacingRight() {
+		return facingRight;
+	}
+
+	public void setFacingRight(boolean facingRight) {
+		this.facingRight = facingRight;
+	}
+
+	public int getCounter() {
+		return counter;
+	}
+
+	public void setCounter(int counter) {
+		this.counter = counter;
 	}
 
 }

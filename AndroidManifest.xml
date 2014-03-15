@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.kilobolt.robotgame"
+    package="com.andyt.robotgame"
     android:versionCode="1"
     android:versionName="1.0" >
 
@@ -9,15 +9,16 @@
 
     <uses-sdk
         android:minSdkVersion="8"
-        android:targetSdkVersion="17" />
+        android:targetSdkVersion="18" />
 
     <application
-        android:icon="@drawable/icon"
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
         android:label="RobotGame" >
         <activity
-            android:name=".SampleGame"
+            android:name="com.kilobolt.robotgame.SampleGame"
             android:configChanges="keyboard|keyboardHidden|orientation"
-            android:label="RobotGame"
+            android:label="Game"
             android:screenOrientation="landscape" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

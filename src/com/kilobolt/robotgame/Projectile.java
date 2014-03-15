@@ -6,23 +6,23 @@ import android.graphics.Rect;
 public class Projectile {
 
 	private int x, y, speedX;
-	private boolean visible;
+	protected boolean visible;
 	
-	private Rect r;
-	
-	public Projectile(int startX, int startY){
+	protected Rect r;
+	public Projectile(){};
+	public Projectile(int startX, int startY, int speed){
 		x = startX;
 		y = startY;
-		speedX = 7;
+		speedX = speed;
 		visible = true;
 		
 		r = new Rect(0, 0, 0, 0);
 	}
 	
 	public void update(){
-		x += speedX;
+		x += speedX + GameScreen.getBg1().getSpeedX();
 		r.set(x, y, x+10, y+5);
-		if (x > 800){
+		if (x > 800 || x < 0){
 			visible = false;
 			r = null;
 		}
@@ -32,21 +32,10 @@ public class Projectile {
 		
 	}
 
-	private void checkCollision() {
+	public void checkCollision() {
+	
 		
-		if (Rect.intersects(r, GameScreen.hb.r)){
-			visible = false;
-
-			if (GameScreen.hb.health > 0) {
-				GameScreen.hb.health -= 1;
-			}
-			if (GameScreen.hb.health == 0) {
-				GameScreen.hb.setCenterX(-100);
-				
-
-			}
-
-		}
+		
 		if (Rect.intersects(r, GameScreen.hb2.r)){
 			visible = false;
 
@@ -93,6 +82,12 @@ public class Projectile {
 
 	public void setVisible(boolean visible) {
 		this.visible = visible;
+	}
+	public Rect getR() {
+		return r;
+	}
+	public void setR(Rect r) {
+		this.r = r;
 	}
 	
 	
