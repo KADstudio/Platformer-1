@@ -16,7 +16,7 @@ public class Enemy {
 	public Rect r = new Rect(0, 0, 0, 0);
 	public int health = 5;
 
-	private int movementSpeed;
+	private int movementSpeed = 0;
 
 	// Behavioral Methods
 	public void update() {

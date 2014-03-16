@@ -32,7 +32,7 @@ public class GameScreen extends Screen {
 			fireball, fireball2;
 	private Animation anim, hanim, fanim;
 
-	private ArrayList tilearray = new ArrayList();
+	private static ArrayList tilearray = new ArrayList();
 
 	int livesLeft = 1;
 	Paint paint, paint2;
@@ -65,10 +65,10 @@ public class GameScreen extends Screen {
 
 		anim = new Animation();
 		// anim.addFrame(characterIdleR, 25);
-		anim.addFrame(characterStride1R, 25);
-		anim.addFrame(characterStride2R, 25);
-		anim.addFrame(characterStride3R, 25);
-		anim.addFrame(characterStride2R, 25);
+		anim.addFrame(characterStride1R, 50);
+		anim.addFrame(characterStride2R, 50);
+		anim.addFrame(characterStride3R, 50);
+		anim.addFrame(characterStride2R, 50);
 
 		hanim = new Animation();
 		hanim.addFrame(heliboy, 100);
@@ -196,9 +196,10 @@ public class GameScreen extends Screen {
 
 				else if (inBounds(event, 0, 415, 65, 65)
 						&& robot.isJumped() == false) {
-					currentSprite = Assets.characterDown;
-					robot.setDucked(true);
-					robot.setSpeedX(0);
+					robot.jump();
+					Tile t = new Tile(robot.getCenterX() - 25, robot.getCenterY() - 25, 8);
+					tilearray.add(t);
+					//Tile.createGround();
 
 				}
 
@@ -238,12 +239,14 @@ public class GameScreen extends Screen {
 				if (event.x > 400 && event.x < 601) {
 					// Move left.
 					robot.stopLeft();
+					robot.setMovingLeft(false);
 					// currentSprite = Assets.characterIdleR;
 				}
 
 				if (event.x > 600) {
 					// Move right.
 					robot.stopRight();
+					robot.setMovingRight(false);
 					// currentSprite = Assets.characterIdleR;
 				}
 			}
@@ -268,7 +271,7 @@ public class GameScreen extends Screen {
 			currentSprite = anim.getImage();
 		} else if (robot.isMovingLeft()) {
 			currentSprite = anim.getImage();
-		} else if (robot.getSpeedX() == 0) {
+		} else if (!robot.isMovingRight() && !robot.isMovingLeft()) {
 			currentSprite = Assets.characterIdleR;
 		}
 
@@ -553,6 +556,10 @@ public class GameScreen extends Screen {
 	public static Robot getRobot() {
 		// TODO Auto-generated method stub
 		return robot;
+	}
+	
+	public static ArrayList getTileArray() {
+		return tilearray;
 	}
 
 }

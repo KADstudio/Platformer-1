@@ -93,17 +93,18 @@ public class Robot {
 	}
 
 	public void stopRight() {
-		setMovingRight(false);
+		//setMovingRight(false);
 		stop();
 	}
 
 	public void stopLeft() {
-		setMovingLeft(false);
+		//setMovingLeft(false);
 		stop();
 	}
 
 	private void stop() {
-		if (isMovingRight() == false && isMovingLeft() == false) {
+		speedX = 0;
+		/*if (isMovingRight() == false && isMovingLeft() == false) {
 			speedX = 0;
 		}
 
@@ -113,7 +114,7 @@ public class Robot {
 
 		if (isMovingRight() == true && isMovingLeft() == false) {
 			moveRight();
-		}
+		}*/
 
 	}
 

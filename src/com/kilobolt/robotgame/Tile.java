@@ -64,6 +64,11 @@ public class Tile {
 		}
 		return false;
 	}
+	
+	public static void createGround(){
+		Tile t = new Tile(GameScreen.getRobot().getCenterX() - 25, GameScreen.getRobot().getCenterY() - 25, 8);
+		GameScreen.getTileArray().add(t);
+	}
 
 	public void checkVerticalCollision(Rect rtop, Rect rbot) {
 		if (Rect.intersects(rtop, r)) {
@@ -83,16 +88,16 @@ public class Tile {
 			// robot.setJumped(false);
 			if (Rect.intersects(rleft, r)) {
 				robot.setCenterX(tileX + 60);
-				robot.setSpeedX(0);
+				
 				robot.stopLeft();
-
+				
 				// speedX = 0;
 				// bg.setSpeedX(0);
 				return true;
 			}
 			if (Rect.intersects(rright, r)) {
 				robot.setCenterX(tileX - 20);
-				robot.setSpeedX(0);
+				
 				robot.stopRight();
 				// speedX = 0;
 				// bg.setSpeedX(0);
