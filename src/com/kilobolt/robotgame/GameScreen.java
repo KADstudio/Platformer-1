@@ -190,7 +190,7 @@ public class GameScreen extends Screen {
 
 					if (robot.isDucked() == false && robot.isReadyToFire()) {
 						robot.shoot();
-						currentSprite = Assets.characterShootR;
+						//currentSprite = Assets.characterShootR;
 					}
 				}
 
@@ -211,9 +211,11 @@ public class GameScreen extends Screen {
 				}
 				if (event.x > 600) {
 					// Move right.
-					robot.moveRight();
-					robot.setMovingRight(true);
-					robot.setFacingRight(true);
+					if (!checkTilesForCollision()) {
+						robot.moveRight();
+						robot.setMovingRight(true);
+						robot.setFacingRight(true);
+					}
 					// currentSprite = anim.getImage();
 
 				}
@@ -250,7 +252,7 @@ public class GameScreen extends Screen {
 
 		// 2. Check miscellaneous events like death:
 
-		if (livesLeft == 0 ) {//&& robot.getHealth() <= 0) {
+		if (livesLeft == 0) {// && robot.getHealth() <= 0) {
 			state = GameState.GameOver;
 		}
 
@@ -291,10 +293,18 @@ public class GameScreen extends Screen {
 		}
 
 		updateTiles();
+		if (checkTilesForCollision()) {
+			unUpdateTiles();
+		
+			bg1.setSpeedX(0);
+			bg2.setSpeedX(0);
+		}
+
 		// hb.update();
 		hb2.update();
 		bg1.update();
 		bg2.update();
+
 		animate();
 
 		if (robot.getCenterY() > 500) {
@@ -351,8 +361,29 @@ public class GameScreen extends Screen {
 		for (int i = 0; i < tilearray.size(); i++) {
 			Tile t = (Tile) tilearray.get(i);
 			t.update();
+
 		}
 
+	}
+	
+	private void unUpdateTiles() {
+		for (int i = 0; i < tilearray.size(); i++) {
+			Tile t = (Tile) tilearray.get(i);
+			t.unUpdate();
+
+		}
+	}
+	
+	
+
+	private boolean checkTilesForCollision() {
+		for (int i = 0; i < tilearray.size(); i++) {
+			Tile t = (Tile) tilearray.get(i);
+			if (t.checkCollisions()) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	@Override

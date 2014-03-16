@@ -18,7 +18,7 @@ public class Robot {
 	private boolean facingRight = true;
 	private boolean ducked = false;
 	private boolean readyToFire = true;
-	private int counter;
+	private int counter = 8;
 	private int health = 5;
 
 	private int speedX = 0;
@@ -43,6 +43,8 @@ public class Robot {
 		if (counter >= 8) {
 			readyToFire = true;
 		}
+		
+		
 		if (speedX == 0) {
 			bg1.setSpeedX(0);
 			bg2.setSpeedX(0);
@@ -70,7 +72,7 @@ public class Robot {
 			centerX = 61;
 		}
 
-		rect.set(centerX - 20, centerY - 25, centerX + 20, centerY);
+		rect.set(centerX - 20, centerY - 35, centerX + 20, centerY);
 		rect2.set(rect.left, centerY, rect.right, centerY + 25);
 		rect3.set(centerX - 25, centerY - 20, centerX, centerY);
 		rect4.set(centerX, centerY - 20, centerX + 25, centerY);
@@ -126,10 +128,10 @@ public class Robot {
 	public void shoot() {
 		if (readyToFire && counter >= 8) {
 			if (facingRight) {
-				Projectile p = new Projectile(centerX + 25, centerY - 20, 10);
+				Projectile p = new Projectile(centerX + 25, centerY - 17, 10);
 				projectiles.add(p);
 			} else {
-				Projectile p = new Projectile(centerX - 25, centerY - 20, -10);
+				Projectile p = new Projectile(centerX - 25, centerY - 17, -10);
 				projectiles.add(p);
 			}
 			counter = 0;

@@ -38,20 +38,69 @@ public class Tile {
 		} else {
 			type = 0;
 		}
+	}
+
+	public void update() {
+
+		speedX = bg.getSpeedX();
+		tileX += speedX;
+		r.set(tileX, tileY, tileX + 40, tileY + 40);
 
 	}
 
-		public void update() {
-			speedX = bg.getSpeedX();
-			tileX += speedX;
-			r.set(tileX, tileY, tileX+40, tileY+40);
-	
-			if (Rect.intersects(r, Robot.yellowRed) && type != 0) {
-				checkVerticalCollision(Robot.rect, Robot.rect2);
-				checkSideCollision(Robot.rect3, Robot.rect4);
+	public void unUpdate() {
+		tileX -= speedX;
+		speedX = 0;
+		r.set(tileX, tileY, tileX + 40, tileY + 40);
+	}
+
+	public boolean checkCollisions() {
+		if (Rect.intersects(r, Robot.yellowRed) && type != 0) {
+			checkVerticalCollision(Robot.rect, Robot.rect2);
+			if (checkSideCollision(Robot.rect3, Robot.rect4)) {
+				return true;
 			}
-	
+
 		}
+		return false;
+	}
+
+	public void checkVerticalCollision(Rect rtop, Rect rbot) {
+		if (Rect.intersects(rtop, r)) {
+
+		}
+
+		if (Rect.intersects(rbot, r) && type == 8) {
+			robot.setJumped(false);
+			robot.setSpeedY(0);
+			robot.setCenterY(tileY - 25);
+		}
+	}
+
+	public boolean checkSideCollision(Rect rleft, Rect rright) {
+		if (type != 2 && type != 0) {
+
+			// robot.setJumped(false);
+			if (Rect.intersects(rleft, r)) {
+				robot.setCenterX(tileX + 60);
+				robot.setSpeedX(0);
+				robot.stopLeft();
+
+				// speedX = 0;
+				// bg.setSpeedX(0);
+				return true;
+			}
+			if (Rect.intersects(rright, r)) {
+				robot.setCenterX(tileX - 20);
+				robot.setSpeedX(0);
+				robot.stopRight();
+				// speedX = 0;
+				// bg.setSpeedX(0);
+				return true;
+			}
+		}
+		return false;
+	}
 
 	public int getTileX() {
 		return tileX;
@@ -75,33 +124,6 @@ public class Tile {
 
 	public void setTileImage(Image tileImage) {
 		this.tileImage = tileImage;
-	}
-
-	public void checkVerticalCollision(Rect rtop, Rect rbot) {
-		if (Rect.intersects(rtop, r)) {
-			
-		}
-
-		if (Rect.intersects(rbot, r) && type == 8) {
-			robot.setJumped(false);
-			robot.setSpeedY(0);
-			robot.setCenterY(tileY - 25);
-		}
-	}
-
-	public void checkSideCollision(Rect rleft, Rect rright) {
-		if (type != 2 && type != 0){
-			if (Rect.intersects(rleft, r)) {
-				robot.setCenterX(tileX + 65);
-				robot.setSpeedX(0);
-	
-			}
-			if (Rect.intersects(rright, r)) {
-				
-				robot.setCenterX(tileX - 25);
-				robot.setSpeedX(0);
-			}
-		}
 	}
 
 }
